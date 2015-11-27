@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+    font-family: Verdana, sans-serif;
+}
+.top-bar{
+    background: #222222;
+    color: #ffffff;
+    width: 100%;
+    height: 60px;
+}
+.title{
+    font-size: 2em;
+    text-align: center;
+    padding: 10px;
+}
+#restart-btn{
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    cursor: pointer;
+    padding: 10px;
+    background: #222222;
+    transition: 0.25s;
+}
+#restart-btn:hover{
+    background: #5D5D5D;
+}
+#game-container{
+    left:0;
+    right:0;
+    display: block;
+    text-align: center;
+    padding: 20px;
+    top: 50%;
+    position: absolute;
+    margin-top: -250px;
+}
+#turn-label{
+    font-size: 2em;
+    text-align: center;
+    padding: 20px;
+}
+#notification{
+    text-align: center;
+    font-size: 1.5em;
+    width: 400px;
+    height: 100px;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.85);
+    left: 0;
+    right: 0;
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    top: 50%;
+    margin-top: -50px;
+}
+.notification_title{
+    padding: 10px;
+}
+.score-board{
+    background: #222222;
+    color: #ffffff;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+}
+#score-text{
+    padding: 15px;
+}

@@ -1,0 +1,16 @@
+{
+  "baseDir":{
+    "es5":"build/es5",
+    "es6":"build/es6"
+  },
+  "modules":[
+    {
+      "class":"TTTGame",
+      "name":"TTTGame",
+      "define":"NID/TTTGame",
+      "dependencies":[],
+      "imports":[],
+      "returns":"nid.TTTGame"
+    }
+  ]
+}

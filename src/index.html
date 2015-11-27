@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TTT Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="nid/TTTGame.js"></script>
+    <!--<script src=../build/es5/TTTGame.js></script>-->
+    <script>
+        window.onload = function () {
+            var turnLabel = document.getElementById("turn-label");
+            var restartBtn = document.getElementById("restart-btn");
+            var scoreText = document.getElementById("score-text");
+            var game = new nid.TTTGame();
+            scoreText.innerHTML = "Score: " + game.score;
+            game.attach(document.getElementById("viewport"));
+            game.onTurnChange(function (player) {
+                turnLabel.innerHTML = player.name + "'s turn";
+            });
+            game.onGameOver(function (winner) {
+                if (winner) {
+                    console.log(winner.wins);
+                    turnLabel.innerHTML = winner.name + " win!";
+                } else {
+                    turnLabel.innerHTML = "It's a tie!";
+                }
+                scoreText.innerHTML = "Score: " + game.score;
+
+            });
+            restartBtn.onclick = function () {
+                game.restart();
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="top-bar">
+    <div class="title">Tic Tac Toe</div>
+    <div id="restart-btn">Restart</div>
+</div>
+<div id="game-container">
+    <canvas id="viewport" width="512" height="512"></canvas>
+</div>
+<div id="turn-label">Player 1's Turn</div>
+<div class="score-board">
+    <div id="score-text">score</div>
+</div>
+</body>
+</html>
