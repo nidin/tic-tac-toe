@@ -13,6 +13,11 @@ module nid{
 
         data:any;
 
+        /**
+         * Constructor
+         * @param type
+         * @param data
+         */
         constructor(type:string, data:any){
             super(type);
             this.data = data;

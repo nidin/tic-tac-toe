@@ -21,6 +21,10 @@ module nid {
         private activeSlot;
         private inited:boolean;
 
+        /**
+         * Constructor
+         * @param canvas
+         */
         constructor(canvas) {
             super();
 
@@ -29,6 +33,10 @@ module nid {
             }
         }
 
+        /**
+         * Initialize UI
+         * @param canvas
+         */
         public init(canvas) {
 
 
@@ -52,6 +60,9 @@ module nid {
             }
         }
 
+        /**
+         * Initialize event listeners
+         */
         private initListener() {
 
             this.inited = true;
@@ -65,6 +76,9 @@ module nid {
             })
         }
 
+        /**
+         * Draw circle on canvas
+         */
         public drawCircle() {
             var thickness = 10;
             var x = this.radius + (this.activeSlot.column * (this.boardUnitWidth)) + this.lineWidth + 20;
@@ -77,6 +91,9 @@ module nid {
             this.ctx.stroke();
         }
 
+        /**
+         * Draw cross on canvas
+         */
         public drawCross() {
             var x = (this.activeSlot.column * (this.boardUnitWidth)) + 30;
             var y = (this.activeSlot.row * (this.boardUnitHeight)) + 130;
@@ -85,6 +102,9 @@ module nid {
             this.ctx.fillText("X", x, y);
         }
 
+        /**
+         * Clear canvas
+         */
         public clear() {
             this.ctx.clearRect(0, 0, this.boardWidth, this.boardHeight);
             this.ctx.fillStyle = "#000000";

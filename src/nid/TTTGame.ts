@@ -4,6 +4,9 @@
  */
 module nid {
 
+    /**
+     * Tic Tac Toe Game
+     */
     export class TTTGame {
 
         private slots:Uint8Array;
@@ -27,10 +30,18 @@ module nid {
             this.players = [new Player(1), new Player(2)];
         }
 
+        /**
+         * Return score string
+         * @returns {string}
+         */
         public get score():string {
             return "X:" + this.players[0].wins + ", O:" + this.players[1].wins + ", T:" + this.ties;
         }
 
+        /**
+         * Attach canvas to game
+         * @param canvas
+         */
         public attach(canvas) {
             this.board = new BoardUI(canvas);
             this.board.addEventListener(BoardEvent.TURN, (event) => {
@@ -84,9 +95,13 @@ module nid {
             }, this);
         }
 
-        private whoWin() {
+        /**
+         * Check if any player wins
+         * @returns {Player}
+         */
+        private whoWin():Player {
             var a = this.slots;
-            var winner = null;
+            var winner:Player = null;
             this.players.forEach(function (player) {
                 if (player.isWin(a)) {
                     winner = player;
@@ -95,14 +110,25 @@ module nid {
             return winner;
         }
 
+        /**
+         * Register function to assign turn change callback
+         * @param callback
+         */
         onTurnChange(callback) {
             this.onTurnChangeCallback = callback;
         }
 
+        /**
+         * Register function to assign game over callback
+         * @param callback
+         */
         onGameOver(callback) {
             this.onGameOverCallback = callback;
         }
 
+        /**
+         * Reset all components and restart game
+         */
         restart() {
             Notification.clear();
             this.gameOver = false;

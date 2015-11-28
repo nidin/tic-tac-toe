@@ -3,12 +3,20 @@
  */
 module nid {
 
+    /**
+     * Handles small notifications
+     */
     export class Notification {
 
         static dom:any;
         static title:any;
         static msg:any;
 
+        /**
+         * Show notification message with title
+         * @param title
+         * @param message
+         */
         static show(title:string, message:string) {
             if (!Notification.dom) {
                 var container = document.createElement('div');
@@ -26,6 +34,10 @@ module nid {
             Notification.msg.innerHTML = message;
             Notification.title.innerHTML = title;
         }
+
+        /**
+         * Clear notification
+         */
         static clear(){
             if(document.body.contains(Notification.dom)){
                 document.body.removeChild(Notification.dom);

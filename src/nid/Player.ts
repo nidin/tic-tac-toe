@@ -8,10 +8,19 @@ module nid {
         public name:string;
         public wins:number = 0;
 
+        /**
+         * Constructor
+         * @param id
+         */
         constructor(public id:number) {
             this.name = "Player " + id;
         }
 
+        /**
+         * Check if player wins
+         * @param a
+         * @returns {boolean}
+         */
         isWin(a) {
             var win:boolean = false;
             //row

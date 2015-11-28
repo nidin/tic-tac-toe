@@ -86,6 +86,9 @@ declare module nid {
  * Created by Nidin Vinayakan on 28-11-2015.
  */
 declare module nid {
+    /**
+     * Tic Tac Toe Game
+     */
     class TTTGame {
         private slots;
         private board;

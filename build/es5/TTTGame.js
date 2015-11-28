@@ -245,6 +245,9 @@ var nid;
  */
 var nid;
 (function (nid) {
+    /**
+     * Tic Tac Toe Game
+     */
     var TTTGame = (function () {
         function TTTGame() {
             this.ties = 0;

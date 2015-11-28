@@ -64,69 +64,21 @@ var core;
  */
 var nid;
 (function (nid) {
-    var Notification = (function () {
-        function Notification() {
-        }
-        Notification.show = function (title, message) {
-            if (!Notification.dom) {
-                var container = document.createElement('div');
-                var _title = document.createElement('div');
-                var _msg = document.createElement('div');
-                container.id = "notification";
-                _title.className = "notification_title";
-                container.appendChild(_title);
-                container.appendChild(_msg);
-                Notification.dom = container;
-                Notification.title = _title;
-                Notification.msg = _msg;
-            }
-            document.body.appendChild(Notification.dom);
-            Notification.msg.innerHTML = message;
-            Notification.title.innerHTML = title;
-        };
-        Notification.clear = function () {
-            if (document.body.contains(Notification.dom)) {
-                document.body.removeChild(Notification.dom);
-            }
-        };
-        return Notification;
-    })();
-    nid.Notification = Notification;
-})(nid || (nid = {}));
-///<reference path="includes.d.ts" />
-/**
- * Created by Nidin Vinayakan on 28-11-2015.
- */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var nid;
-(function (nid) {
-    var BaseEvent = core.BaseEvent;
-    var BoardEvent = (function (_super) {
-        __extends(BoardEvent, _super);
-        function BoardEvent(type, data) {
-            _super.call(this, type);
-            this.data = data;
-        }
-        BoardEvent.TURN = "TURN";
-        return BoardEvent;
-    })(BaseEvent);
-    nid.BoardEvent = BoardEvent;
-})(nid || (nid = {}));
-/**
- * Created by Nidin Vinayakan on 28-11-2015.
- */
-var nid;
-(function (nid) {
     var Player = (function () {
+        /**
+         * Constructor
+         * @param id
+         */
         function Player(id) {
             this.id = id;
             this.wins = 0;
             this.name = "Player " + id;
         }
+        /**
+         * Check if player wins
+         * @param a
+         * @returns {boolean}
+         */
         Player.prototype.isWin = function (a) {
             var win = false;
             //row
@@ -165,6 +117,79 @@ var nid;
     })();
     nid.Player = Player;
 })(nid || (nid = {}));
+/**
+ * Created by Nidin Vinayakan on 28-11-2015.
+ */
+var nid;
+(function (nid) {
+    /**
+     * Handles small notifications
+     */
+    var Notification = (function () {
+        function Notification() {
+        }
+        /**
+         * Show notification message with title
+         * @param title
+         * @param message
+         */
+        Notification.show = function (title, message) {
+            if (!Notification.dom) {
+                var container = document.createElement('div');
+                var _title = document.createElement('div');
+                var _msg = document.createElement('div');
+                container.id = "notification";
+                _title.className = "notification_title";
+                container.appendChild(_title);
+                container.appendChild(_msg);
+                Notification.dom = container;
+                Notification.title = _title;
+                Notification.msg = _msg;
+            }
+            document.body.appendChild(Notification.dom);
+            Notification.msg.innerHTML = message;
+            Notification.title.innerHTML = title;
+        };
+        /**
+         * Clear notification
+         */
+        Notification.clear = function () {
+            if (document.body.contains(Notification.dom)) {
+                document.body.removeChild(Notification.dom);
+            }
+        };
+        return Notification;
+    })();
+    nid.Notification = Notification;
+})(nid || (nid = {}));
+///<reference path="includes.d.ts" />
+/**
+ * Created by Nidin Vinayakan on 28-11-2015.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var nid;
+(function (nid) {
+    var BaseEvent = core.BaseEvent;
+    var BoardEvent = (function (_super) {
+        __extends(BoardEvent, _super);
+        /**
+         * Constructor
+         * @param type
+         * @param data
+         */
+        function BoardEvent(type, data) {
+            _super.call(this, type);
+            this.data = data;
+        }
+        BoardEvent.TURN = "TURN";
+        return BoardEvent;
+    })(BaseEvent);
+    nid.BoardEvent = BoardEvent;
+})(nid || (nid = {}));
 ///<reference path="includes.d.ts" />
 /**
  * Created by Nidin Vinayakan on 28-11-2015.
@@ -174,12 +199,20 @@ var nid;
     var EventDispatcher = core.EventDispatcher;
     var BoardUI = (function (_super) {
         __extends(BoardUI, _super);
+        /**
+         * Constructor
+         * @param canvas
+         */
         function BoardUI(canvas) {
             _super.call(this);
             if (canvas) {
                 this.init(canvas);
             }
         }
+        /**
+         * Initialize UI
+         * @param canvas
+         */
         BoardUI.prototype.init = function (canvas) {
             this.lineWidth = 5;
             this.boardUnitWidth = 150;
@@ -196,6 +229,9 @@ var nid;
                 this.initListener();
             }
         };
+        /**
+         * Initialize event listeners
+         */
         BoardUI.prototype.initListener = function () {
             var _this = this;
             this.inited = true;
@@ -208,6 +244,9 @@ var nid;
                 _this.dispatchEvent(new nid.BoardEvent(nid.BoardEvent.TURN, slot));
             });
         };
+        /**
+         * Draw circle on canvas
+         */
         BoardUI.prototype.drawCircle = function () {
             var thickness = 10;
             var x = this.radius + (this.activeSlot.column * (this.boardUnitWidth)) + this.lineWidth + 20;
@@ -219,6 +258,9 @@ var nid;
             this.ctx.strokeStyle = '#F80303';
             this.ctx.stroke();
         };
+        /**
+         * Draw cross on canvas
+         */
         BoardUI.prototype.drawCross = function () {
             var x = (this.activeSlot.column * (this.boardUnitWidth)) + 30;
             var y = (this.activeSlot.row * (this.boardUnitHeight)) + 130;
@@ -226,6 +268,9 @@ var nid;
             this.ctx.font = "150px Arial";
             this.ctx.fillText("X", x, y);
         };
+        /**
+         * Clear canvas
+         */
         BoardUI.prototype.clear = function () {
             this.ctx.clearRect(0, 0, this.boardWidth, this.boardHeight);
             this.ctx.fillStyle = "#000000";
@@ -244,6 +289,9 @@ var nid;
  */
 var nid;
 (function (nid) {
+    /**
+     * Tic Tac Toe Game
+     */
     var TTTGame = (function () {
         function TTTGame() {
             this.ties = 0;
@@ -256,12 +304,20 @@ var nid;
             this.players = [new nid.Player(1), new nid.Player(2)];
         }
         Object.defineProperty(TTTGame.prototype, "score", {
+            /**
+             * Return score string
+             * @returns {string}
+             */
             get: function () {
                 return "X:" + this.players[0].wins + ", O:" + this.players[1].wins + ", T:" + this.ties;
             },
             enumerable: true,
             configurable: true
         });
+        /**
+         * Attach canvas to game
+         * @param canvas
+         */
         TTTGame.prototype.attach = function (canvas) {
             var _this = this;
             this.board = new nid.BoardUI(canvas);
@@ -310,6 +366,10 @@ var nid;
                 }
             }, this);
         };
+        /**
+         * Check if any player wins
+         * @returns {Player}
+         */
         TTTGame.prototype.whoWin = function () {
             var a = this.slots;
             var winner = null;
@@ -320,12 +380,23 @@ var nid;
             });
             return winner;
         };
+        /**
+         * Register function to assign turn change callback
+         * @param callback
+         */
         TTTGame.prototype.onTurnChange = function (callback) {
             this.onTurnChangeCallback = callback;
         };
+        /**
+         * Register function to assign game over callback
+         * @param callback
+         */
         TTTGame.prototype.onGameOver = function (callback) {
             this.onGameOverCallback = callback;
         };
+        /**
+         * Reset all components and restart game
+         */
         TTTGame.prototype.restart = function () {
             nid.Notification.clear();
             this.gameOver = false;
